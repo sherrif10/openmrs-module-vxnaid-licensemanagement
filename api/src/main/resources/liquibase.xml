@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public License,
+  ~ v. 2.0. If a copy of the MPL was not distributed with this file, You can
+  ~ obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+  ~ the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+  ~ <p>
+  ~ Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+  ~ graphic logo is a trademark of OpenMRS Inc.
+  -->
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <!--
+    	See http://wiki.openmrs.org/display/docs/Module+liquibase+File for
+    	documentation on this file.
+    
+        See http://www.liquibase.org/manual/home#available_database_refactorings
+        for a list of supported elements and attributes
+    -->
+
+    <changeSet id="licensemanagement-init-Device" author="Connect for Life">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="licensemgmt_device"/>
+            </not>
+        </preConditions>
+        <comment>Creating the licensemgmt_device table</comment>
+        <createTable tableName="licensemgmt_device">
+            <!-- Device -->
+            <column name="device_id" autoIncrement="true" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="device_mac" type="varchar(255)"/>
+            <!-- BaseOpenmrsMetadata -->
+            <column name="name" defaultValue="" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="creator" defaultValueNumeric="0" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="DATETIME"/>
+            <column name="retired" defaultValueBoolean="false" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_retired" type="DATETIME"/>
+            <column name="retired_by" type="int"/>
+            <column name="retire_reason" type="varchar(255)"/>
+            <!-- BaseOpenmrsObject -->
+            <column name="uuid" type="char(38)"/>
+        </createTable>
+        <!-- BaseOpenmrsMetadata -->
+        <addForeignKeyConstraint constraintName="device_creator_fk"
+                                 baseTableName="licensemgmt_device" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="device_changed_by_fk"
+                                 baseTableName="licensemgmt_device" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="device_retired_by_fk"
+                                 baseTableName="licensemgmt_device" baseColumnNames="retired_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <modifySql dbms="mssql">
+            <replace replace="CHAR(38)" with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="licensemanagement-init-DeviceAttributeType" author="Connect for Life">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="licensemgmt_device_attribute_type"/>
+            </not>
+        </preConditions>
+        <comment>Creating the licensemgmt_device_attribute_type table</comment>
+        <createTable tableName="licensemgmt_device_attribute_type">
+            <!-- DeviceAttributeType -->
+            <column name="device_attribute_type_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <!-- BaseAttributeType -->
+            <column name="min_occurs" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_occurs" type="int"/>
+            <column name="datatype_config" type="text"/>
+            <column name="preferred_handler" type="varchar(255)"/>
+            <column name="handler_config" type="text"/>
+            <!-- BaseOpenmrsMetadata -->
+            <column name="name" defaultValue="" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="creator" defaultValueNumeric="0" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="DATETIME"/>
+            <column name="retired" defaultValueBoolean="false" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_retired" type="DATETIME"/>
+            <column name="retired_by" type="int"/>
+            <column name="retire_reason" type="varchar(255)"/>
+            <!-- BaseOpenmrsObject -->
+            <column name="uuid" type="char(38)"/>
+        </createTable>
+        <!-- BaseOpenmrsMetadata -->
+        <addForeignKeyConstraint constraintName="device_attribute_type_creator_fk"
+                                 baseTableName="licensemgmt_device_attribute_type" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="device_attribute_type_changed_by_fk"
+                                 baseTableName="licensemgmt_device_attribute_type" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="device_attribute_type_retired_by_fk"
+                                 baseTableName="licensemgmt_device_attribute_type" baseColumnNames="retired_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <modifySql dbms="mssql">
+            <replace replace="CHAR(38)" with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="licensemanagement-init-DeviceAttribute" author="Connect for Life">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="licensemgmt_device_attribute"/>
+            </not>
+        </preConditions>
+        <comment>Creating the licensemgmt_device_attribute table</comment>
+        <createTable tableName="licensemgmt_device_attribute">
+            <!-- DeviceAttribute -->
+            <column name="device_attribute_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <!-- BaseAttribute -->
+            <column name="device_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="attribute_type_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value_reference" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <!-- BaseOpenmrsData -->
+            <column name="creator" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="datetime"/>
+            <column name="voided" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_voided" type="datetime"/>
+            <column name="voided_by" type="int"/>
+            <column name="void_reason" type="varchar(255)"/>
+            <!-- BaseOpenmrsObject -->
+            <column name="uuid" type="char(38)"/>
+        </createTable>
+        <!-- BaseAttribute -->
+        <addForeignKeyConstraint constraintName="device_attribute_device_fk"
+                                 baseTableName="licensemgmt_device_attribute" baseColumnNames="device_id"
+                                 referencedTableName="licensemgmt_device"
+                                 referencedColumnNames="device_id"/>
+        <addForeignKeyConstraint constraintName="device_attribute_attribute_type_id_fk"
+                                 baseTableName="licensemgmt_device_attribute" baseColumnNames="attribute_type_id"
+                                 referencedTableName="licensemgmt_device_attribute_type"
+                                 referencedColumnNames="device_attribute_type_id"/>
+        <!-- BaseOpenmrsData -->
+        <addForeignKeyConstraint constraintName="device_attribute_creator_fk"
+                                 baseTableName="licensemgmt_device_attribute" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="device_attribute_changed_by_fk"
+                                 baseTableName="licensemgmt_device_attribute" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="device_attribute_voided_by_fk"
+                                 baseTableName="licensemgmt_device_attribute" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <modifySql dbms="mssql">
+            <replace replace="CHAR(38)" with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="licensemanagement-init-LicenseType" author="Connect for Life">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="licensemgmt_license_type"/>
+            </not>
+        </preConditions>
+        <comment>Creating the licensemgmt_license_type table</comment>
+        <createTable tableName="licensemgmt_license_type">
+            <!-- LicenseType -->
+            <column name="license_type_id" autoIncrement="true" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <!-- BaseOpenmrsMetadata -->
+            <column name="name" defaultValue="" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="creator" defaultValueNumeric="0" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="DATETIME"/>
+            <column name="retired" defaultValueBoolean="false" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_retired" type="DATETIME"/>
+            <column name="retired_by" type="int"/>
+            <column name="retire_reason" type="varchar(255)"/>
+            <!-- BaseOpenmrsObject -->
+            <column name="uuid" type="char(38)"/>
+        </createTable>
+        <!-- BaseOpenmrsMetadata -->
+        <addForeignKeyConstraint constraintName="license_type_creator_fk"
+                                 baseTableName="licensemgmt_license_type" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="license_type_changed_by_fk"
+                                 baseTableName="licensemgmt_license_type" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="license_type_retired_by_fk"
+                                 baseTableName="licensemgmt_license_type" baseColumnNames="retired_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <modifySql dbms="mssql">
+            <replace replace="CHAR(38)" with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="licensemanagement-init-License" author="Connect for Life">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="licensemgmt_license"/>
+            </not>
+        </preConditions>
+        <comment>Creating the licensemgmt_license table</comment>
+        <createTable tableName="licensemgmt_license">
+            <!-- License -->
+            <column name="license_id" autoIncrement="true" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="serial_no" type="TEXT"/>
+            <column name="online" defaultValueBoolean="false" type="BOOLEAN"/>
+            <column name="license_type_id" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <!-- BaseOpenmrsMetadata -->
+            <column name="name" defaultValue="" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="creator" defaultValueNumeric="0" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="DATETIME"/>
+            <column name="retired" defaultValueBoolean="false" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_retired" type="DATETIME"/>
+            <column name="retired_by" type="int"/>
+            <column name="retire_reason" type="varchar(255)"/>
+            <!-- BaseOpenmrsObject -->
+            <column name="uuid" type="char(38)"/>
+        </createTable>
+        <!-- License -->
+        <addForeignKeyConstraint constraintName="license_license_type_fk"
+                                 baseTableName="licensemgmt_license" baseColumnNames="license_type_id"
+                                 referencedTableName="licensemgmt_license_type" referencedColumnNames="license_type_id"/>
+        <!-- BaseOpenmrsMetadata -->
+        <addForeignKeyConstraint constraintName="license_creator_fk"
+                                 baseTableName="licensemgmt_license" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="license_changed_by_fk"
+                                 baseTableName="licensemgmt_license" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="license_retired_by_fk"
+                                 baseTableName="licensemgmt_license" baseColumnNames="retired_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <modifySql dbms="mssql">
+            <replace replace="CHAR(38)" with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet id="licensemanagement-License-name-nullable" author="Connect for Life">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="NO">
+                select is_nullable
+                from information_schema.columns
+                where table_name = 'licensemgmt_license' and column_name = 'name'
+            </sqlCheck>
+        </preConditions>
+        <dropNotNullConstraint tableName="licensemgmt_license" columnName="name" columnDataType="varchar(255)"/>
+    </changeSet>
+
+    <changeSet id="licensemanagement-missing-datatype" author="Connect for Life">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="licensemgmt_device_attribute_type" columnName="datatype" />
+            </not>
+        </preConditions>
+        <addColumn tableName="licensemgmt_device_attribute_type">
+            <column name="datatype" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="licensemanagement-online-changed-to-text" author="Connect for Life">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="text">
+                    select data_type
+                    from information_schema.columns
+                    where table_name = 'licensemgmt_license' and column_name = 'online'
+                </sqlCheck>
+            </not>
+        </preConditions>
+        <modifyColumn tableName="licensemgmt_license">
+            <column name="online" type="text"/>
+        </modifyColumn>
+    </changeSet>
+
+    <changeSet id="licensemanagement-init-DeviceError" author="Connect for Life">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="licensemgmt_device_error"/>
+            </not>
+        </preConditions>
+        <comment>Creating the licensemgmt_device _error table</comment>
+        <createTable tableName="licensemgmt_device_error">
+            <!-- DeviceError-->
+            <column name="device_error_id" autoIncrement="true" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="device_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meta_type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meta_sub_type" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="meta_value" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="error_key" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="meta" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stack_trace" type="TEXT"/>
+            <column name="reported_date" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- BaseOpenmrsData -->
+            <column name="creator" type="int"/>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="datetime"/>
+            <column name="date_created" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_voided" type="datetime"/>
+            <column name="void_reason" type="varchar(255)"/>
+            <column name="voided" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int"/>
+            <!-- BaseOpenmrsObject -->
+            <column name="uuid" type="char(38)"/>
+        </createTable>
+        <!-- BaseOpenmrsData -->
+        <addForeignKeyConstraint constraintName="device_error_creator_fk"
+                                 baseTableName="licensemgmt_device_error" baseColumnNames="creator"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="device_error_changed_by_fk"
+                                 baseTableName="licensemgmt_device_error" baseColumnNames="changed_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="licensemgmt_device_error_device_fk"
+                                 baseTableName="licensemgmt_device_error" baseColumnNames="device_id"
+                                 referencedTableName="licensemgmt_device" referencedColumnNames="device_id"/>
+        <addForeignKeyConstraint constraintName="licensemgmt_device_error_voided_by_fk"
+                                 baseTableName="licensemgmt_device_error" baseColumnNames="voided_by"
+                                 referencedTableName="users" referencedColumnNames="user_id"/>
+        <modifySql dbms="mssql">
+            <replace replace="CHAR(38)" with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

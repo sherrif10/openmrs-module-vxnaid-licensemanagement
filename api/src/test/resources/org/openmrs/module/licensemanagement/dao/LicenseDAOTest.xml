@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public License,
+  ~ v. 2.0. If a copy of the MPL was not distributed with this file, You can
+  ~ obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+  ~ the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+  ~ <p>
+  ~ Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+  ~ graphic logo is a trademark of OpenMRS Inc.
+  -->
+
+<dataset>
+    <licensemgmt_license_type license_type_id="1" name="Iris Scan" description="The Iris Scan License" creator="1"
+                              date_created="2021-01-01 00:00:00.0" retired="false"
+                              uuid="f07ba61b-0000-0000-0000-000000000000"/>
+    <licensemgmt_license_type license_type_id="2" name="Finger Scan" description="The Finger Scan License" creator="1"
+                              date_created="2021-01-01 00:00:00.0" retired="false"
+                              uuid="f07ba61b-0000-0000-0000-000000000001"/>
+
+    <licensemgmt_license license_id="1" serial_no="ABCDEFGHIJKLMNOPRSTUWXYZ01234567891" license_type_id="1"
+                         name="IRIS1" creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                         uuid="f07ba61b-1000-0000-0000-000000000001"/>
+    <licensemgmt_license license_id="2" serial_no="ABCDEFGHIJKLMNOPRSTUWXYZ01234567892" license_type_id="2"
+                         name="FINGER1" creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                         uuid="f07ba61b-1000-0000-0000-000000000002"/>
+    <licensemgmt_license license_id="3" serial_no="ABCDEFGHIJKLMNOPRSTUWXYZ01234567893" license_type_id="2"
+                         name="IRIS2" creator="1" date_created="2021-01-01 00:00:00.0" retired="true" retire_reason="Test"
+                         uuid="f07ba61b-1000-0000-0000-000000000003"/>
+    <licensemgmt_license license_id="4" serial_no="ABCDEFGHIJKLMNOPRSTUWXYZ01234567894" license_type_id="1"
+                         name="IRIS3" creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                         uuid="f07ba61b-1000-0000-0000-000000000004"/>
+    <licensemgmt_license license_id="5" serial_no="ABCDEFGHIJKLMNOPRSTUWXYZ01234567895" license_type_id="2"
+                         name="FINGER2" creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                         uuid="f07ba61b-1000-0000-0000-000000000005"/>
+    <licensemgmt_license license_id="6" serial_no="ABCDEFGHIJKLMNOPRSTUWXYZ01234567896" license_type_id="1"
+                         name="IRIS4" creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                         uuid="f07ba61b-1000-0000-0000-000000000006"/>
+    <licensemgmt_license license_id="7" serial_no="ABCDEFGHIJKLMNOPRSTUWXYZ01234567897" license_type_id="2"
+                         name="FINGER3" creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                         uuid="f07ba61b-1000-0000-0000-000000000007"/>
+
+    <licensemgmt_device device_id="1" device_mac="AA:00:00:00:00:01" name="Device 1" description="Device one"
+                        creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                        uuid="f07ba61b-2000-0000-0000-000000000001"/>
+    <licensemgmt_device device_id="2" device_mac="AA:00:00:00:00:02" name="Device 2" description="Device two"
+                        creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                        uuid="f07ba61b-2000-0000-0000-000000000002"/>
+
+    <licensemgmt_device_attribute_type device_attribute_type_id="1" min_occurs="0"
+                                       datatype="org.openmrs.module.licensemanagement.customdatatype.datatype.LicenseDatatype"
+                                       name="Iris Scan License" description="The License for Iris Scan."
+                                       creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                                       uuid="f07ba61b-3000-0000-0000-000000000001"/>
+    <licensemgmt_device_attribute_type device_attribute_type_id="2" min_occurs="0"
+                                       datatype="org.openmrs.module.licensemanagement.customdatatype.datatype.LicenseDatatype"
+                                       name="Finger Scan License" description="The License for Finger Scan."
+                                       creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                                       uuid="f07ba61b-3000-0000-0000-000000000002"/>
+
+    <licensemgmt_device_attribute device_attribute_id="1" device_id="1" attribute_type_id="1"
+                                  value_reference="f07ba61b-1000-0000-0000-000000000001"
+                                  uuid="f07ba61b-4000-0000-0000-000000000001" creator="1"
+                                  date_created="2021-01-01 00:00:00.0"
+                                  voided="false"/>
+    <licensemgmt_device_attribute device_attribute_id="2" device_id="1" attribute_type_id="2"
+                                  value_reference="f07ba61b-1000-0000-0000-000000000002"
+                                  uuid="f07ba61b-4000-0000-0000-000000000002" creator="1"
+                                  date_created="2021-01-01 00:00:00.0"
+                                  voided="false"/>
+
+    <licensemgmt_device_attribute device_attribute_id="3" device_id="2" attribute_type_id="1"
+                                  value_reference="f07ba61b-1000-0000-0000-000000000004"
+                                  uuid="f07ba61b-4000-0000-0000-000000000004" creator="1"
+                                  date_created="2021-01-01 00:00:00.0"
+                                  voided="false"/>
+    <licensemgmt_device_attribute device_attribute_id="4" device_id="2" attribute_type_id="2"
+                                  value_reference="f07ba61b-1000-0000-0000-000000000005"
+                                  uuid="f07ba61b-4000-0000-0000-000000000005" creator="1"
+                                  date_created="2021-01-01 00:00:00.0"
+                                  voided="true"/>
+</dataset>

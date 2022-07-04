@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public License,
+  ~ v. 2.0. If a copy of the MPL was not distributed with this file, You can
+  ~ obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+  ~ the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+  ~ <p>
+  ~ Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+  ~ graphic logo is a trademark of OpenMRS Inc.
+  -->
+
+<dataset>
+    <licensemgmt_device device_id="1" device_mac="AA:00:00:00:00:01" name="Device 1" description="Device one"
+                        creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                        uuid="f08ba64b-2000-0000-0000-000000000001"/>
+    <licensemgmt_device device_id="2" device_mac="AA:00:00:00:00:02" name="XDevice 2" description="Device two"
+                        creator="1" date_created="2021-01-01 00:00:00.0" retired="false"
+                        uuid="f08ba64b-2000-0000-0000-000000000002"/>
+    <licensemgmt_device device_id="3" device_mac="AA:00:00:00:00:03" name="Device 3" description="Device three"
+                        creator="1" date_created="2021-01-01 00:00:00.0" retired="true" retire_reason="Test"
+                        uuid="f08ba64b-2000-0000-0000-000000000003"/>
+
+    <licensemgmt_device_error device_error_id="1" device_id="1" meta_type="license" meta_sub_type="IRIS_CLIENT"
+                              meta_value="GET_LICENSE_CALL" error_key="license:IRIS_CLIENT,GET_LICENSE_CALL"
+                              reported_date="2021-05-18 14:12:58"
+                              meta='{type: \"license\",licenseType: \"IRIS_CLIENT\",action: \"GET_LICENSE_CALL\"}'
+                              creator="1" date_created="2021-01-01 00:00:00.0" voided="false"
+                              uuid="f08ba64b-0000-0000-0000-000000000000"/>
+</dataset>

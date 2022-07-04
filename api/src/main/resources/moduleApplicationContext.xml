@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public License,
+  ~ v. 2.0. If a copy of the MPL was not distributed with this file, You can
+  ~ obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+  ~ the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+  ~ <p>
+  ~ Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+  ~ graphic logo is a trademark of OpenMRS Inc.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- DAOs -->
+    <bean id="licensemanagement.LicenseTypeDAO" class="org.openmrs.module.licensemanagement.api.dao.LicenseTypeDAO">
+        <property name="dbSessionFactory" ref="dbSessionFactory"/>
+    </bean>
+
+    <bean id="licensemanagement.LicenseDAO" class="org.openmrs.module.licensemanagement.api.dao.LicenseDAO">
+        <property name="dbSessionFactory" ref="dbSessionFactory"/>
+    </bean>
+
+    <bean id="licensemanagement.DeviceDAO" class="org.openmrs.module.licensemanagement.api.dao.DeviceDAO">
+        <property name="dbSessionFactory" ref="dbSessionFactory"/>
+    </bean>
+
+    <bean id="licensemanagement.DeviceErrorDAO" class="org.openmrs.module.licensemanagement.api.dao.DeviceErrorDAO">
+        <property name="dbSessionFactory" ref="dbSessionFactory"/>
+    </bean>
+    <!-- End DAOs -->
+
+    <!-- Adds DeviceService bean. -->
+    <bean id="licensemanagement.DeviceService"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target">
+            <bean class="org.openmrs.module.licensemanagement.api.impl.DeviceServiceImpl">
+                <property name="deviceDAO" ref="licensemanagement.DeviceDAO"/>
+            </bean>
+        </property>
+        <property name="preInterceptors" ref="serviceInterceptors"/>
+        <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
+    </bean>
+
+    <!-- Adds LicenseTypeService bean. -->
+    <bean id="licensemanagement.LicenseTypeService"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target">
+            <bean class="org.openmrs.module.licensemanagement.api.impl.LicenseTypeServiceImpl">
+                <property name="licenseTypeDAO" ref="licensemanagement.LicenseTypeDAO"/>
+            </bean>
+        </property>
+        <property name="preInterceptors" ref="serviceInterceptors"/>
+        <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
+    </bean>
+
+    <!-- Adds LicenseService bean. -->
+    <bean id="licensemanagement.LicenseService"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target">
+            <bean class="org.openmrs.module.licensemanagement.api.impl.LicenseServiceImpl">
+                <property name="licenseDAO" ref="licensemanagement.LicenseDAO"/>
+            </bean>
+        </property>
+        <property name="preInterceptors" ref="serviceInterceptors"/>
+        <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
+    </bean>
+
+    <!-- Adds DeviceErrorService bean. -->
+    <bean id="licensemanagement.DeviceErrorService"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target">
+            <bean class="org.openmrs.module.licensemanagement.api.impl.DeviceErrorServiceImpl">
+                <property name="deviceErrorDAO" ref="licensemanagement.DeviceErrorDAO"/>
+            </bean>
+        </property>
+        <property name="preInterceptors" ref="serviceInterceptors"/>
+        <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
+    </bean>
+
+    <!--Add Services to OpenMRS Context -->
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list merge="true">
+                <value>org.openmrs.module.licensemanagement.api.DeviceService</value>
+                <ref bean="licensemanagement.DeviceService"/>
+            </list>
+        </property>
+    </bean>
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list merge="true">
+                <value>org.openmrs.module.licensemanagement.api.LicenseTypeService</value>
+                <ref bean="licensemanagement.LicenseTypeService"/>
+            </list>
+        </property>
+    </bean>
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list merge="true">
+                <value>org.openmrs.module.licensemanagement.api.LicenseService</value>
+                <ref bean="licensemanagement.LicenseService"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Validators -->
+    <bean id="licenseTypeValidator" class="org.openmrs.module.licensemanagement.validator.LicenseTypeValidator"/>
+    <!-- End Validators -->
+</beans>

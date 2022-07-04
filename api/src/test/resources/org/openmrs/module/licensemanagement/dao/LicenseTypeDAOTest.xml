@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public License,
+  ~ v. 2.0. If a copy of the MPL was not distributed with this file, You can
+  ~ obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+  ~ the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+  ~ <p>
+  ~ Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+  ~ graphic logo is a trademark of OpenMRS Inc.
+  -->
+
+<dataset>
+    <licensemgmt_license_type license_type_id="1" name="Iris Scan" description="The Iris Scan License" creator="1"
+                              date_created="2021-01-01 00:00:00.0" retired="false"
+                              uuid="f08ba61b-0000-0000-0000-000000000000"/>
+    <licensemgmt_license_type license_type_id="2" name="Finger Scan" description="The Finger Scan License" creator="1"
+                              date_created="2021-01-01 00:00:00.0" retired="false"
+                              uuid="f08ba61b-0000-0000-0000-000000000001"/>
+    <licensemgmt_license_type license_type_id="3" name="ID-Card Scan" description="The ID-Card Scan License" creator="1"
+                              date_created="2021-01-01 00:00:00.0" retired="true" retire_reason="Test"
+                              uuid="f08ba61b-0000-0000-0000-000000000002"/>
+</dataset>
