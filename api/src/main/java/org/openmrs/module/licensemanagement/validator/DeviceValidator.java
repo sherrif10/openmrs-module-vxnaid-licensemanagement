@@ -27,7 +27,7 @@ public class DeviceValidator implements Validator {
         if (device == null) {
             errors.rejectValue("device", "error.general");
         } else {
-            ValidateUtil.validateFieldLengths(errors, obj.getClass(), "name", "description", "retireReason", "deviceMac");
+            ValidateUtil.validateFieldLengths(errors, obj.getClass(), "name", "description", "retireReason", "deviceMac", "deviceLinux", "deviceWindows");
         }
     }
 }

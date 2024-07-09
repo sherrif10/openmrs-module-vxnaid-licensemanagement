@@ -29,6 +29,8 @@
             <th><openmrs:message code="general.name"/></th>
             <th><openmrs:message code="general.description"/></th>
             <th><openmrs:message code="licensemanagement.device.deviceMac"/></th>
+            <th><openmrs:message code="licensemanagement.device.deviceLinux"/></th>
+            <th><openmrs:message code="licensemanagement.device.deviceWindows"/></th>
         </tr>
         <c:forEach var="device" items="${devices}">
             <tr>
@@ -46,6 +48,8 @@
                 </td>
                 <td valign="top"><c:out value="${device.description}"/></td>
                 <td valign="top"><c:out value="${device.deviceMac}"/></td>
+                <td valign="top"><c:out value="${device.deviceLinux}"/></td>
+                <td valign="top"><c:out value="${device.deviceWindows}"/></td>       
             </tr>
         </c:forEach>
     </table>

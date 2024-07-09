@@ -70,6 +70,18 @@ public interface DeviceService extends OpenmrsService {
     @Authorized(PrivilegeConstants.GET_DEVICE_ATTRIBUTE_TYPES)
     DeviceAttributeType getDeviceAttributeTypeByUuid(String uuid) throws APIException;
 
+    @Authorized(PrivilegeConstants.GET_DEVICES)
+    Device getDeviceByWindows(String deviceWindows) throws APIException;
+
+    @Authorized(PrivilegeConstants.GET_DEVICES)
+    Device getDeviceByWindows(String deviceWindows, Boolean retired) throws APIException;
+
+    @Authorized(PrivilegeConstants.GET_DEVICES)
+    Device getDeviceByLinux(String deviceLinux) throws APIException;
+
+    @Authorized(PrivilegeConstants.GET_DEVICES)
+    Device getDeviceByLinux(String deviceLinux, Boolean retired) throws APIException;
+
     @Authorized(PrivilegeConstants.GET_DEVICE_ATTRIBUTE_TYPES)
     List<DeviceAttributeType> getAllDeviceAttributeTypes() throws APIException;
 

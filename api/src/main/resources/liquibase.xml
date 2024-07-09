@@ -36,6 +36,8 @@
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="device_mac" type="varchar(255)"/>
+            <column name="device_linux" type="varchar(255)"/>
+            <column name="device_windows" type="varchar(255)"/>
             <!-- BaseOpenmrsMetadata -->
             <column name="name" defaultValue="" type="varchar(255)">
                 <constraints nullable="false"/>

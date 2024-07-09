@@ -61,6 +61,31 @@ public class DeviceServiceImpl extends BaseOpenmrsService implements DeviceServi
     public Device getDeviceByMAC(final String deviceMac, final Boolean retired) throws APIException {
         return deviceDAO.getDeviceByMac(deviceMac, retired);
     }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Device getDeviceByLinux(final String deviceLinux) throws APIException {
+        return deviceDAO.getDeviceByLinux(deviceLinux);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Device getDeviceByLinux(final String deviceLinux, final Boolean retired) throws APIException {
+        return deviceDAO.getDeviceByLinux(deviceLinux, retired);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Device getDeviceByWindows(final String deviceWindows) throws APIException {
+        return deviceDAO.getDeviceByWindows(deviceWindows);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Device getDeviceByWindows(final String deviceWindows, final Boolean retired) throws APIException {
+        return deviceDAO.getDeviceByWindows(deviceWindows, retired);
+    }
 
     @Override
     @Transactional(readOnly = true)

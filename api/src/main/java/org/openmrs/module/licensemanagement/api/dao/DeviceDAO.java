@@ -50,6 +50,31 @@ public class DeviceDAO extends BaseLicenseManagementOpenmrsMetadataDAO<Device> {
         return firstResult(criteria, Device.class);
     }
 
+    public Device getDeviceByLinux(final String deviceLinux) {
+        final Criteria criteria = getSession().createCriteria(Device.class).add(Restrictions.eq("deviceLinux", deviceLinux));
+        return firstResult(criteria, Device.class);
+    }
+
+    public Device getDeviceByLinux(final String deviceLinux, final Boolean retired) {
+        final Criteria criteria = getSession().createCriteria(Device.class);
+        criteria.add(Restrictions.eq("deviceLinux", deviceLinux));
+        criteria.add(Restrictions.eq(RETIRED_PROP, retired));
+        return firstResult(criteria, Device.class);
+    }
+
+
+    public Device getDeviceByWindows(final String deviceWindows) {
+        final Criteria criteria = getSession().createCriteria(Device.class).add(Restrictions.eq("deviceWindows", deviceWindows));
+        return firstResult(criteria, Device.class);
+    }
+
+    public Device getDeviceByWindows(final String deviceWindows, final Boolean retired) {
+        final Criteria criteria = getSession().createCriteria(Device.class);
+        criteria.add(Restrictions.eq("deviceWindows", deviceWindows));
+        criteria.add(Restrictions.eq(RETIRED_PROP, retired));
+        return firstResult(criteria, Device.class);
+    }
+
     public List<Device> getAllDevices(boolean includeRetired) {
         return internalReadAll(includeRetired);
     }

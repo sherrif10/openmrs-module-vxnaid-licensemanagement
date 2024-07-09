@@ -56,6 +56,12 @@ public class Device extends BaseOpenmrsMetadata
   @Column(name = "device_mac", length = 255)
   private String deviceMac;
 
+  @Column(name = "device_linux", length = 255)
+  private String deviceLinux;
+
+  @Column(name = "device_windows", length = 255)
+  private String deviceWindows;
+
   // Repeat the field from BaseCustomizableMetadata to add Hibernate mapping (unfortunately the BaseCustomizableMetadata
   // has no annotations)
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "device")
@@ -104,6 +110,39 @@ public class Device extends BaseOpenmrsMetadata
    */
   public void setDeviceMac(String deviceMac) {
     this.deviceMac = deviceMac;
+  }
+
+
+    /**
+   * @return the Device LINUX
+   */
+  public String getDeviceLinux() {
+    return deviceLinux;
+  }
+
+  /**
+   * Sets Device LINUX.
+   *
+   * @param deviceLINUX, the Device LINUX to set
+   */
+  public void setDeviceLinux(String deviceLinux) {
+    this.deviceLinux = deviceLinux;
+  }
+
+     /**
+   * @return the Device Windows
+   */
+  public String getDeviceWindows() {
+    return deviceWindows;
+  }
+
+  /**
+   * Sets Device Windows.
+   *
+   * @param deviceWindows, the Device Windows to set
+   */
+  public void setDeviceWindows(String deviceWindows) {
+    this.deviceWindows = deviceWindows;
   }
 
   @Override

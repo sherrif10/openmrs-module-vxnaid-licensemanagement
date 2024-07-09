@@ -65,6 +65,24 @@
                     </spring:bind>
                 </td>
             </tr>
+            <tr>
+                <th valign="top"><openmrs:message code="licensemanagement.device.deviceLinux"/></th>
+                <td valign="top">
+                    <spring:bind path="device.deviceLinux">
+                        <input type="text" name="deviceLinux" value="${status.value}" size="35"/>
+                        <c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
+                    </spring:bind>
+                </td>
+            </tr>
+            <tr>
+                <th valign="top"><openmrs:message code="licensemanagement.device.deviceWindows"/></th>
+                <td valign="top">
+                    <spring:bind path="device.deviceWindows">
+                        <input type="text" name="deviceWindows" value="${status.value}" size="35"/>
+                        <c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
+                    </spring:bind>
+                </td>
+            </tr>
             <spring:bind path="device.activeAttributes">
                 <c:if test="${status.error}">
                     <tr>
